@@ -1,28 +1,180 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RPSSpock
 {
   class Program
   {
+
+    static string randomGenerator()
+    {
+      Random rnd = new Random();
+      string[] gameChoice = { "rock", "paper", "scissor", "lizard", "spock" };
+      int mIndex = rnd.Next(gameChoice.Length);
+      Console.WriteLine("I selected {0}", gameChoice[mIndex]);
+      return gameChoice[mIndex];
+    }
+
+    static string winner(string userChoice, string computerChoice)
+    {
+      var winnerMessage = "";
+
+      if (userChoice == computerChoice)
+      {
+        winnerMessage = "we tied.";
+      }
+
+      if (userChoice == "rock")
+      {
+        if (computerChoice == "scissor")
+        {
+          winnerMessage = "you win.";
+        }
+        else if (computerChoice == "paper")
+        {
+          winnerMessage = "I win.";
+        }
+      }
+
+      if (userChoice == "paper")
+      {
+        if (computerChoice == "scissor")
+        {
+          winnerMessage = "I win.";
+        }
+        else if (computerChoice == "rock")
+        {
+          winnerMessage = "you win.";
+        }
+      }
+
+      if (userChoice == "scissor")
+      {
+        if (computerChoice == "rock")
+        {
+          winnerMessage = "I win.";
+        }
+        else if (computerChoice == "paper")
+        {
+          winnerMessage = "you win.";
+        }
+      }
+
+      winnerMessage = "Based on your choice of " + userChoice + " and my choice of " + computerChoice + ", " + winnerMessage;
+      return winnerMessage;
+    }
+
+    class humanPlayer
+    {
+      public string Name { get; set; }
+      private string choice = "";
+      private int win = 0;
+      private int loss = 0;
+      private int tie = 0;
+
+      public int Win
+      {
+        get { return win; }
+        set { win = value; }
+      }
+      public int Loss
+      {
+        get { return win; }
+        set { win = value; }
+      }
+      public int Tie
+      {
+        get { return win; }
+        set { win = value; }
+      }
+
+    }
+
+    class PCPlayer
+    {
+      private string choice = "";
+      private int win = 0;
+      private int loss = 0;
+      private int tie = 0;
+
+      public int Win
+      {
+        get { return win; }
+        set { win = value; }
+      }
+      public int Loss
+      {
+        get { return win; }
+        set { win = value; }
+      }
+      public int Tie
+      {
+        get { return win; }
+        set { win = value; }
+      }
+
+    }
+
     static void Main(string[] args)
     {
 
-      /*
-         - As a user, I should see a welcome message.
-         - As a user, I should see the options I can pick (i.e., "rock", "paper", "scissor")
-         - The computer should randomly decide one of the options.
-         - You program should then decide who the winner is;
-         - The user should then see the randomly selected option, as well as a win or lose message.
-         - add some validation around user input.
-      */
 
-      //Code welcome message
+      // humanPlayer Matt = new humanPlayer();
+      // //Matt.newLoss(1);
+      // Matt.Loss = 1;
+      // int example = Matt.Loss;
+      // Console.Write("Example = " + example);
+
+
+
+
       Console.WriteLine("Welcome to rock, paper scissors.");
       var computerChoice = "nothing";
       var winnerMessage = "nothing";
       Boolean playing = true;
 
+
+
+      Console.Write("How many human players?");
+      var numHumans = Console.ReadLine();
+
+      int humans = 0;
+      Boolean res = int.TryParse(numHumans, out humans);
+      if (res == true)
+      {
+        Console.Write("Please enter a number");
+      }
+
+
+
+
+
+      var people = new List<humanPlayer>();
+      for (int i = 0; i < humans; i++)
+      {
+        // Here you can give each person a custom name based on a number
+        people.Add(new humanPlayer { Name = "Person #" + (i + 1) });
+      }
+
+      // int counter = 0;
+      // while (counter < humans)
+      // {
+
+      //   //string player = "player" + counter;
+      //   humanPlayer jghjhgjhgjh = new humanPlayer();
+      //   counter ++;
+      // }
+
+
+
+
+
+
       while (playing == true)
+
+
+
       {
 
         // Choose difficulty level and validation logic
@@ -45,7 +197,7 @@ namespace RPSSpock
 
         }
 
-        Console.WriteLine("Please choose one of the following: rock, paper or scissor");
+        Console.WriteLine("Please choose one of the following: rock, paper, scissor, lizard or spock");
 
         var userChoice = Console.ReadLine().ToLower();
 
@@ -53,7 +205,7 @@ namespace RPSSpock
 
         while (good == false)
         {
-          if (userChoice == "rock" || userChoice == "paper" || userChoice == "scissor")
+          if (userChoice == "rock" || userChoice == "paper" || userChoice == "scissor" || userChoice == "lizard" || userChoice == "spock")
           {
             good = true;
           }
@@ -65,6 +217,10 @@ namespace RPSSpock
         }
 
         Console.WriteLine("Thank you.  You have selected " + userChoice);
+
+
+
+
 
         switch (userDifficulty)
         {
@@ -116,70 +272,17 @@ namespace RPSSpock
             // This is where we use the level
 
 
+            // Random rnd = new Random();
+            // string[] gameChoice = { "rock", "paper", "scissor" };
+            // int mIndex = rnd.Next(gameChoice.Length);
+            // Console.WriteLine("I selected {0}", gameChoice[mIndex]);
 
-            //var computerChoice = new Random();
-
-            Random rnd = new Random();
-            string[] gameChoice = { "rock", "paper", "scissor" };
-            int mIndex = rnd.Next(gameChoice.Length);
-            Console.WriteLine("I selected {0}", gameChoice[mIndex]);
-            computerChoice = gameChoice[mIndex];
+            computerChoice = randomGenerator();
             break;
 
-
-
-
-
-
-
-
-
-
-            // end pick level
-
-        }
-        if (userChoice == computerChoice)
-        {
-          winnerMessage = "we tied.";
         }
 
-        if (userChoice == "rock")
-        {
-          if (computerChoice == "scissor")
-          {
-            winnerMessage = "you win.";
-          }
-          else if (computerChoice == "paper")
-          {
-            winnerMessage = "I win.";
-          }
-        }
-
-        if (userChoice == "paper")
-        {
-          if (computerChoice == "scissor")
-          {
-            winnerMessage = "I win.";
-          }
-          else if (computerChoice == "rock")
-          {
-            winnerMessage = "you win.";
-          }
-        }
-
-        if (userChoice == "scissor")
-        {
-          if (computerChoice == "rock")
-          {
-            winnerMessage = "I win.";
-          }
-          else if (computerChoice == "paper")
-          {
-            winnerMessage = "you win.";
-          }
-        }
-
-        Console.WriteLine("Based on your choice of " + userChoice + " and my choice of " + computerChoice + ", " + winnerMessage);
+        winnerMessage = winner(userChoice, computerChoice);
 
         Console.WriteLine("Dow you want to play again? Yes or No");
         var playAgain = Console.ReadLine().ToLower();
